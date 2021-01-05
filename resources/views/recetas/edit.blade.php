@@ -105,7 +105,7 @@
 
         <div class="col-6">
             <p>Imagen anterior:</p>
-            <img class="img-fluid" src="/storage/{{$recetas->imagen}}" alt="" srcset="">
+            <img class="img-fluid" src="{{$recetas->imagen}}" alt="" srcset="">
 
         </div>
 

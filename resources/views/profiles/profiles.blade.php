@@ -9,7 +9,7 @@
             @if ($perfil->imagen)
 
 
-                <img src="/storage/{{$perfil->imagen}}" class="w-100 rounded-circle" alt="">
+                <img src="{{$perfil->imagen}}" class="w-100 rounded-circle" alt="">
 
 
 
@@ -25,6 +25,7 @@
             </div>
             <div>
                 <a class=" btn btn-block btn-primary  bg-primary d-block text-center" href="{{$perfil->usuario->url}}">Pagina web</a>
+                <a class=" btn btn-block btn-info text-white  d-block text-center" href="{{ route('perfiles.edit',['perfil'=>$perfil->id])}}">Editar Perfil</a>
             </div>
 
         </div>
@@ -41,7 +42,7 @@
 
                     <div class="col-md-4 mb-4">
                         <div class="card  shadow-dreamy">
-                            <img src="/storage/{{$item->imagen}}" class="card-img-top" alt="">
+                            <img src="{{$item->imagen}}" class="card-img-top" alt="">
 
 
                             <div class="card-body">

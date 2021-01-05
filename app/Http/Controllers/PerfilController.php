@@ -6,6 +6,7 @@ use App\Perfil;
 use App\Receta;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class PerfilController extends Controller
 {
@@ -99,11 +100,21 @@ class PerfilController extends Controller
 
         if ($request['imagen']){
                //guardar la imagen
-            $imagen = $request['imagen']->store('uploads-perfiles','public');
-            $img =  Image::make(public_path("storage/{$imagen}"))->fit(600,600);
-            $img->save();
+            // $imagen = $request['imagen']->store('uploads-perfiles','public');
+            // $img =  Image::make(public_path("storage/{$imagen}"))->fit(600,600);
+            // $img->save();
 
-            $array_image = ['imagen'=>$imagen];
+            $uploadedFileUrl = Cloudinary::upload($request->file('imagen')->getRealPath(),[
+                'folder' => 'uploads',
+                'transformation' => [
+                          'width' =>600 ,
+                          'height' => 600,
+                          'crop' => 'limit'
+                 ]
+            ])->getSecurePath();
+
+
+            $array_image = ['imagen'=>$uploadedFileUrl];
         }
 
         //guardar datos del usuario

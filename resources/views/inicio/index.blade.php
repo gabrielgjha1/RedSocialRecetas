@@ -37,7 +37,7 @@
 
 
                     <div class="card   ">
-                        <img src="/storage/{{$nueva->imagen}}" class="card-img-top" alt="" srcset="">
+                        <img src="{{$nueva->imagen}}" class="card-img-top" alt="" srcset="">
                         <div class="card-body">
                             <h3>{{ Str::title($nueva->titulo) }}</h3>
                             <p>{{ Str::words(strip_tags($nueva->preparacion), 50)  }}</p>

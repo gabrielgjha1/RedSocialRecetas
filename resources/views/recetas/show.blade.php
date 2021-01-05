@@ -9,7 +9,7 @@
 
 
 
-        <img class="img-fluid w-100 text-center" src="/storage/{{$recetas->imagen}}" alt="">
+        <img class="img-fluid w-100 text-center" src="{{$nueva->imagen}}" alt="">
         <section class="infos">
 
             <p> Escrito en: <span>  {{$recetas->titulo}}  </span> </p>

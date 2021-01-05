@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 
-use App\CategoriaRecetas;
 use App\Receta;
+use App\CategoriaRecetas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class RecetaController extends Controller
 {
@@ -80,21 +81,6 @@ class RecetaController extends Controller
         // dd( $request->all() );
         // dd( $request['imagen']->store('uploads-recetas','public')  );
 
-        //validar los datos
-        $data = request()->validate([
-
-            'titulo'=> 'required|min:3',
-            'categoria'=>'required',
-            'preparacion'=>'required',
-            'ingredientes'=>'required',
-            'imagen'=>'required'
-        ]);
-
-
-        //guardar la imagen
-        $imagen = $request['imagen']->store('uploads-recetas','public');
-        $img =  Image::make(public_path("storage/{$imagen}"))->fit(1000,550);
-        $img->save();
 
 
         //guardar datos sin modelo
@@ -124,12 +110,44 @@ class RecetaController extends Controller
 
         //guardar directamente
 
+
+        //validar los datos
+        $data = request()->validate([
+
+        'titulo'=> 'required|min:3',
+        'categoria'=>'required',
+        'preparacion'=>'required',
+        'ingredientes'=>'required',
+        'imagen'=>'required'
+          ]);
+
+
+        //guardar la imagen local
+        // $imagen = $request['imagen']->store('uploads-recetas','public');
+        // $img =  Image::make(public_path("storage/{$imagen}"))->fit(1000,550);
+        // dd($img);
+        // $img = $uploadedFileUrl;
+        // $img->save();
+
+        //guardar imagen con cloudinary
+        $uploadedFileUrl = Cloudinary::upload($request->file('imagen')->getRealPath(),[
+            'folder' => 'uploads',
+            'transformation' => [
+                      'width' =>1000 ,
+                      'height' => 550,
+                      'crop' => 'limit'
+             ]
+            ])->getSecurePath();
+
+
+
+
         auth()->user()->recetas()->create([
             'titulo'=> $data['titulo'],
             'categoria_id'=>$data['categoria'],
             'preparacion'=>$data['preparacion'],
             'ingredientes'=>$data['ingredientes'],
-            'imagen'=>$imagen
+            'imagen'=>$uploadedFileUrl
         ]);
 
 

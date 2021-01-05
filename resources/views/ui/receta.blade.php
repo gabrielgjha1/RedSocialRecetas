@@ -1,6 +1,6 @@
 <div class="col-md-4 mt-4">
     <div class="card shadow-dreamy">
-        <img src="/storage/{{$receta->imagen}}" class="card-img-top" alt="" srcset="">
+        <img src="{{$receta->imagen}}" class="card-img-top" alt="" srcset="">
         <div class="card-body">
             <h3 class="card-title text-center">{{$receta->titulo}}</h3>
             <div class="meta-receta d-flex justify-content-between ">
