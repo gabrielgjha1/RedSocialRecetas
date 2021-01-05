@@ -9,7 +9,7 @@
 
 
 
-        <img class="img-fluid w-100 text-center" src="{{$nueva->imagen}}" alt="">
+        <img class="img-fluid w-100 text-center" src="{{$recetas->imagen}}" alt="">
         <section class="infos">
 
             <p> Escrito en: <span>  {{$recetas->titulo}}  </span> </p>
